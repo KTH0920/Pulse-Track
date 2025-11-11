@@ -1,0 +1,441 @@
+# PulseTrack
+
+**Real-time Market Data Dashboard** - Track market pulse with live updates and intelligent alerts
+
+![Tech Stack](https://img.shields.io/badge/Stack-MERN-green)
+![License](https://img.shields.io/badge/License-MIT-blue)
+
+> 실시간 시장 데이터를 추적(Track)하여 투자자에게 핵심적인 맥박(Pulse) 정보를 제공하는 대시보드
+
+PulseTrack is a full-stack real-time market data tracking application that provides investors with essential market insights through an interactive dashboard, real-time price updates, and intelligent price alerts.
+
+---
+
+## 한국어 소개
+
+### 프로젝트 개요
+PulseTrack은 MERN 스택으로 구축된 실시간 주식 시장 데이터 추적 애플리케이션입니다.
+
+### 핵심 기능
+- **보안 인증**: JWT 기반 회원가입 및 로그인
+- **관심 종목 관리**: 개인 관심 종목 등록 및 관리
+- **실시간 가격 업데이트**: Socket.io WebSocket을 통한 실시간 시세
+- **가격 알림**: 사용자 지정 가격 도달 시 알림
+- **인터랙티브 차트**: Chart.js 기반 시각화
+- **자동 데이터 수집**: Cron 스케줄러를 통한 자동 데이터 갱신
+
+### 기술 스택
+- **Frontend**: React 18
+- **Backend**: Node.js + Express.js
+- **Database**: MongoDB + Mongoose
+- **Real-time**: Socket.io
+- **Data Visualization**: Chart.js
+- **Authentication**: JWT + bcrypt
+
+---
+
+## Features
+
+### Core Functionality
+- **Secure Authentication**: JWT-based user registration and login system
+- **Watchlist Management**: Add, update, and remove symbols from your personal watchlist
+- **Real-time Price Updates**: Live market data via Socket.io WebSocket connections
+- **Price Alerts**: Set custom price alerts with above/below conditions
+- **Interactive Charts**: Visualize historical price data with Chart.js
+- **Automated Data Collection**: Scheduled data fetching using Cron jobs
+
+### Key Highlights
+- JWT authentication with secure password hashing
+- Real-time dashboard with Socket.io
+- Interactive price charts with multiple timeframes (7D, 1M, 3M)
+- Browser notifications for price alerts
+- MongoDB for flexible data storage
+- RESTful API architecture
+- Responsive design
+
+## Tech Stack
+
+| Category | Technology | Purpose |
+|----------|-----------|---------|
+| **Frontend** | React 18 | Dynamic UI and state management |
+| **Backend** | Node.js + Express | Async API server and business logic |
+| **Database** | MongoDB + Mongoose | NoSQL data modeling and storage |
+| **Real-time** | Socket.io | WebSocket connections for live updates |
+| **Data Viz** | Chart.js + react-chartjs-2 | Interactive charting |
+| **Scheduling** | node-cron | Automated data collection |
+| **Auth** | JWT + bcrypt | Secure authentication |
+
+## Project Structure
+
+```
+PulseTrack/
+├── backend/
+│   ├── config/
+│   │   └── db.js                 # MongoDB connection
+│   ├── controllers/
+│   │   ├── alertController.js    # Price alert logic
+│   │   ├── authController.js     # Authentication logic
+│   │   ├── marketController.js   # Market data logic
+│   │   └── watchlistController.js # Watchlist CRUD
+│   ├── middleware/
+│   │   ├── auth.js               # JWT authentication
+│   │   └── errorHandler.js       # Error handling
+│   ├── models/
+│   │   ├── MarketData.js         # Market data schema
+│   │   ├── PriceAlert.js         # Alert schema
+│   │   ├── User.js               # User schema
+│   │   └── Watchlist.js          # Watchlist schema
+│   ├── routes/
+│   │   ├── alertRoutes.js
+│   │   ├── authRoutes.js
+│   │   ├── marketRoutes.js
+│   │   └── watchlistRoutes.js
+│   ├── services/
+│   │   ├── alertService.js       # Alert checking logic
+│   │   ├── cronService.js        # Scheduled tasks
+│   │   ├── financialApiService.js # External API integration
+│   │   └── socketService.js      # Socket.io server
+│   ├── utils/
+│   │   └── generateToken.js      # JWT token generation
+│   ├── .env.example
+│   ├── package.json
+│   └── server.js                 # Main server entry
+│
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── AlertsPanel.js    # Alerts management UI
+│   │   │   ├── AlertsPanel.css
+│   │   │   ├── Auth.css          # Auth styling
+│   │   │   ├── Dashboard.js      # Main dashboard
+│   │   │   ├── Dashboard.css
+│   │   │   ├── Login.js
+│   │   │   ├── PriceChart.js     # Chart.js integration
+│   │   │   ├── PriceChart.css
+│   │   │   ├── Register.js
+│   │   │   ├── Watchlist.js      # Watchlist UI
+│   │   │   └── Watchlist.css
+│   │   ├── context/
+│   │   │   ├── AuthContext.js    # Auth state management
+│   │   │   └── SocketContext.js  # Socket.io client
+│   │   ├── services/
+│   │   │   └── api.js            # API service layer
+│   │   ├── App.js                # Main app with routing
+│   │   ├── App.css
+│   │   ├── index.js
+│   │   └── index.css
+│   ├── .env.example
+│   └── package.json
+│
+└── README.md
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- MongoDB (v5 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/KTH0920/Pulse-Track.git
+cd Pulse-Track
+```
+
+2. **Set up Backend**
+```bash
+cd backend
+npm install
+
+# Create .env file from example
+cp .env.example .env
+
+# Edit .env with your configuration
+# Required: MONGODB_URI, JWT_SECRET
+```
+
+3. **Set up Frontend**
+```bash
+cd ../frontend
+npm install
+
+# Create .env file from example
+cp .env.example .env
+
+# Edit if needed (defaults should work for local development)
+```
+
+### Configuration
+
+#### Backend (.env)
+```env
+NODE_ENV=development
+PORT=5000
+
+# MongoDB Connection
+MONGODB_URI=mongodb://localhost:27017/pulsetrack
+
+# JWT Secret (generate a secure random string)
+JWT_SECRET=your_jwt_secret_key_change_this_in_production
+JWT_EXPIRE=7d
+
+# External Financial API (optional - uses mock data by default)
+FINANCIAL_API_KEY=your_api_key_here
+FINANCIAL_API_BASE_URL=https://api.example.com
+
+# Client URL for CORS
+CLIENT_URL=http://localhost:3000
+
+# Cron Schedule (every 5 minutes)
+DATA_FETCH_SCHEDULE=*/5 * * * *
+```
+
+#### Frontend (.env)
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_WS_URL=http://localhost:5000
+```
+
+### Running the Application
+
+1. **Start MongoDB** (if running locally)
+```bash
+mongod
+```
+
+2. **Start Backend Server**
+```bash
+cd backend
+npm run dev  # Development with nodemon
+# or
+npm start    # Production
+```
+
+Backend will run on http://localhost:5000
+
+3. **Start Frontend**
+```bash
+cd frontend
+npm start
+```
+
+Frontend will run on http://localhost:3000
+
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/profile` - Get user profile (protected)
+
+### Watchlist
+- `GET /api/watchlist` - Get user's watchlist (protected)
+- `POST /api/watchlist` - Add symbol to watchlist (protected)
+- `PUT /api/watchlist/:id` - Update watchlist item (protected)
+- `DELETE /api/watchlist/:id` - Remove from watchlist (protected)
+
+### Price Alerts
+- `GET /api/alerts` - Get user's alerts (protected)
+- `POST /api/alerts` - Create price alert (protected)
+- `PUT /api/alerts/:id` - Update alert (protected)
+- `DELETE /api/alerts/:id` - Delete alert (protected)
+
+### Market Data
+- `GET /api/market/:symbol` - Get current quote for symbol (protected)
+- `GET /api/market/:symbol/history` - Get historical data (protected)
+- `GET /api/market/search?q=query` - Search symbols (protected)
+- `POST /api/market/bulk` - Get bulk quotes (protected)
+
+## Socket.io Events
+
+### Client → Server
+- `subscribe_symbol` - Subscribe to symbol updates
+- `unsubscribe_symbol` - Unsubscribe from symbol
+
+### Server → Client
+- `price_update` - Real-time price update for subscribed symbols
+- `price_alert` - Price alert notification
+- `market_update` - General market data broadcast
+
+## Usage Guide
+
+### 1. Register/Login
+- Create an account or login with existing credentials
+- JWT token is stored in localStorage for session persistence
+
+### 2. Add Symbols to Watchlist
+- Click the **+** button in the Watchlist panel
+- Enter symbol (e.g., AAPL) and company name
+- Symbol will appear in your watchlist with live prices
+
+### 3. View Charts
+- Click any symbol in your watchlist
+- View interactive price chart in the center panel
+- Switch between 7D, 1M, and 3M timeframes
+
+### 4. Set Price Alerts
+- Select a symbol from your watchlist
+- Click **+** in the Alerts panel
+- Set target price and condition (above/below)
+- Receive browser notifications when triggered
+
+### 5. Real-time Updates
+- Green "Live" indicator shows active connection
+- Prices update automatically via WebSocket
+- Charts reflect latest data
+
+## Features in Detail
+
+### Real-time Price Updates
+- Socket.io maintains persistent WebSocket connection
+- Automatic subscription to watchlist symbols
+- Live price updates every 5 minutes (configurable)
+- Connection status indicator in header
+
+### Interactive Charts
+- Line charts with gradient fill
+- Multiple timeframes: 7 days, 1 month, 3 months
+- Hover tooltips with detailed price info
+- Statistics panel showing Open, High, Low, Volume
+
+### Price Alert System
+- Set custom price thresholds
+- Above/below conditions
+- Automatic triggering via cron job
+- Browser push notifications
+- Alert history tracking
+
+### Data Collection
+- Automated cron jobs fetch market data
+- Configurable schedule (default: every 5 minutes)
+- Stores historical data in MongoDB
+- Daily cleanup of old data (90+ days)
+
+## Customization
+
+### Adding Real Financial API
+
+Replace mock data in `backend/services/financialApiService.js`:
+
+```javascript
+async getQuote(symbol) {
+  // Example: Alpha Vantage
+  const response = await axios.get(
+    `https://www.alphavantage.co/query`,
+    {
+      params: {
+        function: 'GLOBAL_QUOTE',
+        symbol: symbol,
+        apikey: this.apiKey
+      }
+    }
+  );
+
+  // Parse and return data
+  return {
+    symbol: symbol,
+    price: parseFloat(response.data['Global Quote']['05. price']),
+    // ... map other fields
+  };
+}
+```
+
+### Changing Data Fetch Interval
+
+Edit `backend/.env`:
+```env
+# Every minute
+DATA_FETCH_SCHEDULE=* * * * *
+
+# Every hour
+DATA_FETCH_SCHEDULE=0 * * * *
+
+# Every 30 minutes
+DATA_FETCH_SCHEDULE=*/30 * * * *
+```
+
+## Deployment
+
+### Backend Deployment (AWS/Heroku/Railway)
+
+1. Set environment variables
+2. Ensure MongoDB is accessible
+3. Update CLIENT_URL to production frontend URL
+4. Deploy and note backend URL
+
+### Frontend Deployment (Vercel/Netlify)
+
+1. Update `.env` with production backend URL
+2. Build: `npm run build`
+3. Deploy `build` folder
+4. Configure environment variables in hosting platform
+
+### Production Checklist
+- [ ] Use strong JWT_SECRET
+- [ ] Configure production MongoDB (MongoDB Atlas)
+- [ ] Enable CORS for production domains only
+- [ ] Add rate limiting middleware
+- [ ] Enable HTTPS
+- [ ] Configure real financial API
+- [ ] Set up monitoring and logging
+- [ ] Backup database regularly
+
+## Future Enhancements
+
+- [ ] Add candlestick charts
+- [ ] Portfolio tracking with profit/loss calculation
+- [ ] News feed integration
+- [ ] Social features (share watchlists)
+- [ ] Mobile app (React Native)
+- [ ] Email notifications for alerts
+- [ ] Multiple alert conditions (percentage change, volume)
+- [ ] Technical indicators (MA, RSI, MACD)
+- [ ] Export data to CSV
+- [ ] Dark mode theme
+
+## Troubleshooting
+
+### Backend won't start
+- Check MongoDB is running: `mongosh` or `mongo`
+- Verify .env file exists and has correct values
+- Check port 5000 is not in use
+
+### Frontend can't connect to backend
+- Verify backend is running on port 5000
+- Check proxy in frontend/package.json
+- Verify REACT_APP_API_URL in .env
+
+### Socket.io not connecting
+- Check CORS configuration in backend
+- Verify REACT_APP_WS_URL matches backend URL
+- Check browser console for errors
+
+### Alerts not triggering
+- Verify cron job is running (check console logs)
+- Ensure symbols are in watchlist
+- Check alert conditions and target prices
+
+## License
+
+MIT License - feel free to use this project for learning and development.
+
+## Author
+
+Built as a full-stack MERN learning project
+
+## Acknowledgments
+
+- React and Chart.js communities
+- Socket.io documentation
+- MongoDB University
+- Express.js team
+
+---
+
+**Happy Trading!**
